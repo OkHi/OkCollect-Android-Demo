@@ -27,7 +27,7 @@ Clone this repo git clone https://github.com/OkHi/OkCollect-Android-Demo.git
 
 This sample uses the Gradle build system. To build a sample, use the "gradlew build" command or use "Import Project" in Android Studio.
 
-## [](https://github.com/android/location-samples#support)Support
+## Support
 
 
 If you've found an error in these samples, please file an issue:  [here](https://github.com/OkHi/OkCollect-Android-Demo/issues)
