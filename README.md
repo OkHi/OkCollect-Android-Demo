@@ -8,4 +8,27 @@ This repo contains code to handle the following:
 
 1.  Basic location permission.
     
-2.  Theme for the OkHi webview.
+2.  Theme for the okcollect sdk.
+    
+3.  Configuration for okcollect.
+    
+4.  User object creation.
+    
+
+## Prerequisites
+
+-   Android API Level >v23
+-   Google Support Repository
+-   Jitpack support Repository
+
+## Installation
+
+Clone this repo git clone https://github.com/OkHi/OkCollect-Android-Demo.git
+
+This sample uses the Gradle build system. To build a sample, use the "gradlew build" command or use "Import Project" in Android Studio.
+
+## [](https://github.com/android/location-samples#support)Support
+
+
+If you've found an error in these samples, please file an issue:  [here](https://github.com/OkHi/OkCollect-Android-Demo/issues)
+
