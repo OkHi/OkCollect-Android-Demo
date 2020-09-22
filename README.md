@@ -30,5 +30,5 @@ This sample uses the Gradle build system. To build a sample, use the "gradlew bu
 ## Support
 
 
-If you've found an error in these samples, please file an issue:  [here](https://github.com/OkHi/OkCollect-Android-Demo/issues)
+If you've found an error in this sample, please file an issue:  [here](https://github.com/OkHi/OkCollect-Android-Demo/issues)
 
