@@ -23,7 +23,7 @@ This repo contains code to handle the following:
 
 ## Installation
 
-Clone this repo git clone https://github.com/OkHi/OkCollect-Android-Demo.git
+Clone this repo https://github.com/OkHi/OkCollect-Android-Demo.git
 
 This sample uses the Gradle build system. To build a sample, use the "gradlew build" command or use "Import Project" in Android Studio.
 
