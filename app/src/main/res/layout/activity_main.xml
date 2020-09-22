@@ -35,6 +35,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="20dip"
         android:layout_marginBottom="20dip"
+        android:tint="@color/white"
+        app:backgroundTint="@color/green"
         app:elevation="20dp"
         app:srcCompat="@android:drawable/ic_input_add" />
 

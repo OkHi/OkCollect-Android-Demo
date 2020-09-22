@@ -16,12 +16,9 @@ public class Constants {
     public static final String COLUMN_CUSTOMERNAME = "clientName";
     public static final String COLUMN_CLAIMUALID = "ualId";
     public static final String COLUMN_PROPERTY = "property";
-    public static final String COLUMN_VALUE = "value";
     public static final String COLUMN_USERID = "userid";
     public static final String COLUMN_FIRSTNAME = "firstname";
     public static final String COLUMN_LASTNAME = "lastname";
-    public static final String COLUMN_VERIFIED = "verified";
-    public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_PHONECUSTOMER = "phonecustomer";
     public static final String COLUMN_ACCURACY = "accuracy";
     public static final String COLUMN_STREETNAME = "streetname";
@@ -31,9 +28,6 @@ public class Constants {
     public static final String COLUMN_SUBTITLE = "subtitle";
     public static final String COLUMN_DISPLAYTITLE = "displaytitle";
     public static final String COLUMN_TITLE = "title";
-    public static final String COLUMN_WATCHING = "watching";
-    public static final String COLUMN_NOTWATCHING = "notwatching";
-    public static final String COLUMN_WATCHERROR = "watcherror";
 
     public static final String TABLE_NAME_ADDRESSES = "addresses";
 

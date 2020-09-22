@@ -26,11 +26,6 @@ import static com.journey.okcollectandemo.utilities.Constants.COLUMN_SUBTITLE;
 import static com.journey.okcollectandemo.utilities.Constants.COLUMN_TITLE;
 import static com.journey.okcollectandemo.utilities.Constants.COLUMN_URL;
 import static com.journey.okcollectandemo.utilities.Constants.COLUMN_USERID;
-import static com.journey.okcollectandemo.utilities.Constants.COLUMN_USERNAME;
-import static com.journey.okcollectandemo.utilities.Constants.COLUMN_VALUE;
-import static com.journey.okcollectandemo.utilities.Constants.COLUMN_VERIFIED;
-import static com.journey.okcollectandemo.utilities.Constants.COLUMN_WATCHERROR;
-import static com.journey.okcollectandemo.utilities.Constants.COLUMN_WATCHING;
 import static com.journey.okcollectandemo.utilities.Constants.TABLE_NAME_ADDRESSES;
 
 /**
@@ -39,7 +34,7 @@ import static com.journey.okcollectandemo.utilities.Constants.TABLE_NAME_ADDRESS
 public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "com.journey.okcollectandemo.database.okverify.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_CREATE_ADDRESSES =
             "create table " + TABLE_NAME_ADDRESSES + " (" +
                     COLUMN_ID + " integer primary key autoincrement, " +
@@ -55,8 +50,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                     COLUMN_USERID + " VARCHAR, " +
                     COLUMN_FIRSTNAME + " VARCHAR, " +
                     COLUMN_LASTNAME + " VARCHAR, " +
-                    COLUMN_VERIFIED + " INTEGER, " +
-                    COLUMN_USERNAME + " VARCHAR, " +
                     COLUMN_PLACEID + " VARCHAR, " +
                     COLUMN_URL + " VARCHAR, " +
                     COLUMN_PHOTO + " VARCHAR, " +
@@ -64,8 +57,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                     COLUMN_SUBTITLE + " VARCHAR, " +
                     COLUMN_DISPLAYTITLE + " VARCHAR, " +
                     COLUMN_STREETNAME + " VARCHAR, " +
-                    COLUMN_WATCHING + " VARCHAR, " +
-                    COLUMN_WATCHERROR + " VARCHAR, " +
                     " UNIQUE(" + COLUMN_CLAIMUALID + ") ON CONFLICT REPLACE);";
 
 

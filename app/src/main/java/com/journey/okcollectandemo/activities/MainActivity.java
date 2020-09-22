@@ -3,11 +3,13 @@ package com.journey.okcollectandemo.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -41,8 +43,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.journey.okcollectandemo.R;
+import com.journey.okcollectandemo.adapters.AddressListAdapter;
 import com.journey.okcollectandemo.database.DataProvider;
+import com.journey.okcollectandemo.datamodel.AddressItem;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 import io.okhi.android_core.models.OkHiAppContext;
 import io.okhi.android_core.models.OkHiAuth;
@@ -59,6 +67,20 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.journey.okcollectandemo.Secret.DEV_CLIENT_BRANCH;
 import static com.journey.okcollectandemo.Secret.DEV_CLIENT_KEY;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_CLAIMUALID;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_DIRECTION;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_FIRSTNAME;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_LASTNAME;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_LAT;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_LNG;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_PHONECUSTOMER;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_PLACEID;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_PROPERTYNAME;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_PROPERTYNUMBER;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_STREETNAME;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_SUBTITLE;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_TITLE;
+import static com.journey.okcollectandemo.utilities.Constants.COLUMN_URL;
 
 public class MainActivity extends AppCompatActivity {
     OkHiAppContext okhiAppContext = new OkHiAppContext.Builder("dev")
@@ -87,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
     private String phone, userId, firstname, lastname, sessionToken;
     private OkCollectCallback<OkHiUser, OkHiLocation> okCollectCallback;
     private DataProvider dataProvider;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,15 +117,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         createAddressBtn = findViewById(R.id.fab);
         progressBar = findViewById(R.id.progressBar);
+        addressList = findViewById(R.id.addresslistview);
         dataProvider = new DataProvider(this);
+        linearLayoutManager = new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false);
+        addressList.setLayoutManager(linearLayoutManager);
         try {
             mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
             mSettingsClient = LocationServices.getSettingsClient(MainActivity.this);
         } catch (Exception e) {
             displayLog("mfusedlocationclient error " + e.toString());
         }
-        OkHiTheme theme = new OkHiTheme.Builder("#ba0c2f")
-                .withAppBar("https://cdn.okhi.co/icon.png", "#ba0c2f")
+        OkHiTheme theme = new OkHiTheme.Builder("#008577")
+                .withAppBar("https://cdn.okhi.co/icon.png", "#008577")
                 .build();
 
         OkHiConfig config = new OkHiConfig.Builder()
@@ -124,7 +150,8 @@ public class MainActivity extends AppCompatActivity {
                 okCollect.launch(user, new OkCollectCallback<OkHiUser, OkHiLocation>() {
                     @Override
                     public void onSuccess(OkHiUser user, OkHiLocation location) {
-                        showMessage("Address created "+user.getPhone()+" "+location.getId());
+                        insertAddress(user,location);
+                        //showMessage("Address created "+user.getPhone()+" "+location.getId());
                     }
 
                     @Override
@@ -370,8 +397,54 @@ public class MainActivity extends AppCompatActivity {
         displayAddresses(true);
     }
 
-    private void displayAddresses(Boolean display){
 
+    private void insertAddress(OkHiUser user, OkHiLocation location) {
+        final ContentValues contentValues = new ContentValues();
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String userId = user.getId();
+        String phone = user.getPhone();
+        String streetName = location.getStreetName();
+        String propertyName = location.getPropertyName();
+        String directions = location.getDirections();
+        String placeId = location.getPlaceId();
+        final String ualId = location.getId();
+        String url = location.getUrl();
+        String title = location.getTitle();
+        String photo = location.getPhoto();
+        String subtitle = location.getSubtitle();
+        String plusCode = location.getPlusCode();
+        String propertyNumber = location.getPropertyNumber();
+        try {
+            Double lat = location.getLat();
+            Double lng = location.getLon();
+            contentValues.put(COLUMN_LAT, lat);
+            contentValues.put(COLUMN_LNG, lng);
+        } catch (Exception e) {
+            displayLog("insert address error " + e.toString());
+        }
+        contentValues.put(COLUMN_PHONECUSTOMER, phone);
+        contentValues.put(COLUMN_FIRSTNAME, firstName);
+        contentValues.put(COLUMN_LASTNAME, lastName);
+        contentValues.put(COLUMN_STREETNAME, streetName);
+        contentValues.put(COLUMN_PROPERTYNAME, propertyName);
+        contentValues.put(COLUMN_PROPERTYNUMBER, propertyNumber);
+        contentValues.put(COLUMN_DIRECTION, directions);
+        contentValues.put(COLUMN_PLACEID, placeId);
+        contentValues.put(COLUMN_CLAIMUALID, ualId);
+        contentValues.put(COLUMN_URL, url);
+        contentValues.put(COLUMN_TITLE, title);
+        contentValues.put(COLUMN_SUBTITLE, subtitle);
+        //contentValues.put(COLUMN_DISPLAYTITLE, displayTitle);
+        Long i = dataProvider.insertAddressList(contentValues);
+        displayAddresses(false);
+
+    }
+
+    private void displayAddresses(Boolean display){
+        List<AddressItem> addressItemList = dataProvider.getAddresses();
+        AddressListAdapter addressListAdapter = new AddressListAdapter(MainActivity.this, addressItemList);
+        addressList.setAdapter(addressListAdapter);
     }
 
     private void displayLog(String log){

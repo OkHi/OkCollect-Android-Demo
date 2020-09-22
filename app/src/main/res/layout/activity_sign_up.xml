@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:maxLines="1"
-        android:hint="+254713567907"
+        android:hint="+254712345678"
         android:singleLine="true" />
     <TextView
         android:id="@+id/textView2"
@@ -67,7 +67,7 @@
         android:textColor="@color/black"
         android:text="Password" />
     <EditText
-        android:hint="Last 4 digits"
+        android:hint="****"
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
