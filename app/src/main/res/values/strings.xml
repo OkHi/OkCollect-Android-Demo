@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">OkCollect AN Demo</string>
+    <string name="launchBtnText">START ADDRESS CREATION</string>
 </resources>
